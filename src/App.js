@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import './app.css'
+import Navbar from '../src/components/Navbar'
+import Sidebar from '../src/components/Sidebar'
+import H from '../src/pages/H'
+import P from '../src/pages/P'
+import E from '../src/pages/E'
+import Ab from '../src/pages/Ab'
+import Ca from '../src/pages/Ca'
+
+import { useState } from 'react'
+
+import {
+    Route,
+    BrowserRouter as Router,
+    Switch
+} 
+from 'react-router-dom'
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggle = () => {
+      setIsOpen(!isOpen)
+    }
+    return (
+        <>
+            <Router>
+                <Navbar toggle = {toggle}/>
+                <Sidebar toggle = {toggle} isOpen = {isOpen}/>
+                <Switch>
+                    <Route path = '/' exact component= {H} />
+                    <Route path = '/about' component= {Ab} />
+                    <Route path = '/projects' exact component= {P} />
+                    <Route path = '/Equipment' component= {E} />
+                    <Route path = '/Partners' component= {Ca} />
+                </Switch>
+            </Router>
+        </>
+    )
 }
 
 export default App;
